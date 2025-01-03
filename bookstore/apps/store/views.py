@@ -5,15 +5,17 @@ from .models import Book
 
 # Create your views here.
 def homepage(request):
-    query = request.GET.get('query', '')  # Get search query from URL parameters
+    title_query = request.GET.get('title', '')  # Get title search query from URL parameters
+    author_query = request.GET.get('author', '')  # Get author search query from URL parameters
     books = Book.objects.all()  # Simple search
 
-    if query:
-        # Filter books by title, author, or price
+    if title_query:
+        # Filter books by title
         books = books.filter(
-            title__icontains=query) | books.filter(
-            author__icontains=query) | books.filter(
-            price__icontains=query)
+            title__icontains=title_query)
 
+    if author_query:
+        books = books.filter(
+            author__icontains=author_query)
 
-    return render(request, 'homepage.html', {'query': query, 'books': books})
+    return render(request, 'homepage.html', {'title_query': title_query, 'author_query':author_query, 'books': books})
