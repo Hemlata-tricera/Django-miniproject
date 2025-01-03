@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <title>Bookstore</title>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar" style="background-color: #e3f2fd;">
+  <!-- Navbar content -->
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+
+
+
+<!--    <h1>Welcome to the Bookstore</h1>-->
+
+    <!-- Search Form -->
+
+
+    <form method="get">
+        <input type="text" name="query" placeholder="Search for books" value="{{ query }}">
+        <button type="submit">Search</button>
+    </form>
+        </ul>
+    </nav>
+
+    {% if books %}
+        <h2>Search Results:</h2>
+        <ul>
+            {% for book in books %}
+                <li>
+                    <strong>{{ book.title }}</strong><br>
+                    Author: {{ book.author }}<br>
+                    Price: {{ book.price }}<br>
+                    genre: {{ book.genre }}<br>
+                    Available Books: {{ book.stock }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% elif query %}
+        <p>No books found for your search.</p>
+    {% endif %}
+</body>
+</html>
