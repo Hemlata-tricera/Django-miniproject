@@ -1,6 +1,12 @@
 from django.contrib import admin
 from django.urls import path
-from .import views
+from .views import *
+from . import views
+
 urlpatterns = [
-    path('', views.homepage, name='homepage'),
+    path('', homepage, name='homepage'),
+    path('login/', login_page, name='login_page'),    # Login page
+    path('logout/', logout_page, name='logout_page'),    # Login page
+    path('register/', register_page, name='register'),  # Registration page
+    # path('book/<int:pk>/', views.BookDetailView.as_view(), name='book_detail'),
 ]
