@@ -14,22 +14,24 @@ from django.db.models import Q
 def homepage(request):
     title_query = request.GET.get('title', '')  # Get title search query from URL parameters
     author_query = request.GET.get('author', '')  # Get author search query from URL parameters
-    books = Book.objects.all()  # Simple search
+    # books = Book.objects.all()[:5]  # Simple search
+    books = Book.objects.all() # Simple search
 
     if title_query and author_query:
+        books = Book.objects.filter(Q(title__icontains=title_query) | Q(author__icontains=author_query))
         # Filter books by title
         # books = books.filter(
             # title__icontains=title_query) | books.filter(author__icontains=author_query)
-        books = books.filter(
-            Q(title__icontains=title_query) | Q(author__icontains=author_query))
-    elif title_query:
-        # Filter books by title
-        books = books.filter(
-            title__icontains=title_query)
-
-    elif author_query:
-        books = books.filter(
-            author__icontains=author_query)
+        # books = books.filter(
+        #     Q(title__icontains=title_query) | Q(author__icontains=author_query))
+    # elif title_query:
+    #     # Filter books by title
+    #     books = books.filter(
+    #         title__icontains=title_query)
+    #
+    # elif author_query:
+    #     books = books.filter(
+    #         author__icontains=author_query)
 
     return render(request, 'homepage.html', {'title_query': title_query, 'author_query': author_query, 'books': books})
 
