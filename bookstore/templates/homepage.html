@@ -116,7 +116,7 @@ color:blue;
                     <td>{{ book.price }}</td><br>
                     <td>{{ book.genre }}</td><br>
                     <td>{{ book.stock }}</td>
-                    <td><a href="{% url 'store:book_detail' book.id %}"><i class="fa fa-info-circle" aria-hidden="true"></i></a></td>
+                    <td><a href="{% url 'store:book_detail' book.id %}"><i class="fa fa-eye" aria-hidden="true"></i></a></td>
                     <td><a href="{% url 'store:add_to_cart' book.id %}"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a></td>
 
                 </tr>
