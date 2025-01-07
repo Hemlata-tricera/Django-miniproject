@@ -22,7 +22,7 @@ font-size: 20px;
 }
 li{
     display:inline-block;
-    padding:20px 200px 20px 150px;
+    padding:20px 100px 20px 150px;
 }
 .navbar form{
 align-items: right;
@@ -81,8 +81,9 @@ color:blue;
   <!-- Navbar content -->
         <ul>
             <li><a href="/"><i class="fa fa-fw fa-home"></i>Home</a></li>
+            <li><a href="{% url 'store:cart_detail' %}"><i class="fa fa-shopping-cart" aria-hidden="true"></i>Cart</a></li>
             <li><a href="#"><i class="fa fa-user-plus"></i>Register</a></li>
-            <li><a href="{% url 'login_page' %}"><i class="fa fa-fw fa-user"></i>Login</a></li>
+            <li><a href="#"><i class="fa fa-user"></i>Login</a></li>
 
     <form method="get">
         <input type="text" name="title" placeholder="Search for book name" value="{{ title_query }}">
@@ -101,6 +102,10 @@ color:blue;
                   <th scope="col">Price</th>
                   <th scope="col">Genre</th>
                   <th scope="col">Available Books</th>
+                  <th scope="col">Information</th>
+                  <th scope="col">Add to cart</th>
+<!--                    <th scope="col"><i class="fa fa-info-circle" aria-hidden="true"></i></th>-->
+<!--                    <th scope="col"><i class="fa fa-shopping-cart" aria-hidden="true"></i></th>-->
                 </tr>
             </thead>
             <tbody>
@@ -111,6 +116,9 @@ color:blue;
                     <td>{{ book.price }}</td><br>
                     <td>{{ book.genre }}</td><br>
                     <td>{{ book.stock }}</td>
+                    <td><a href="{% url 'store:book_detail' book.id %}"><i class="fa fa-info-circle" aria-hidden="true"></i></a></td>
+                    <td><a href="{% url 'store:add_to_cart' book.id %}"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a></td>
+
                 </tr>
             {% endfor %}
             </tbody>
