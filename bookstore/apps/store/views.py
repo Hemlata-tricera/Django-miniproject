@@ -1,20 +1,17 @@
-from django.shortcuts import render
-from django.http import HttpResponse
 from .models import Book, Cart, CartItem
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.models import User
-from django.views.generic import DetailView
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
-
-
+from django.urls import reverse
 
 
 
 # Create your views here.
-# @login_required
+# @login_required(login_url=reverse('login_page'))
+@login_required
 def homepage(request):
     title_query = request.GET.get('title', '')  # Get title search query from URL parameters
     author_query = request.GET.get('author', '')  # Get author search query from URL parameters
@@ -39,12 +36,15 @@ def homepage(request):
 
     return render(request, 'homepage.html', {'title_query': title_query, 'author_query': author_query, 'books': books})
 
-
+# @login_required(login_url=reverse('login_page'))
+@login_required
 def book_detail(request, pk):
     book = get_object_or_404(Book, pk=pk)
     return render(request, 'book_detail.html', {'book': book})
 
 
+# @login_required(login_url=reverse('login_page'))
+@login_required
 def add_to_cart(request, book_id):
     book = get_object_or_404(Book, id=book_id)
     cart_id = request.session.get('cart_id')
@@ -61,7 +61,8 @@ def add_to_cart(request, book_id):
 
     return redirect('store:cart_detail')
 
-
+# @login_required(login_url=reverse('login_page'))
+@login_required
 def update_cart_item(request, item_id):
     cart_item = get_object_or_404(CartItem, id=item_id)
     if request.method == 'POST':
@@ -69,7 +70,8 @@ def update_cart_item(request, item_id):
         cart_item.save()
     return redirect('store:cart_detail')
 
-
+# @login_required(login_url=reverse('login_page'))
+@login_required
 def cart_detail(request):
     cart_id = request.session.get('cart_id')
     if not cart_id:
@@ -80,13 +82,15 @@ def cart_detail(request):
 
     return render(request, 'cart_detail.html', {'cart': cart, 'total_price': total_price})
 
-
+# @login_required(login_url=reverse('login_page'))
+@login_required
 def remove_from_cart(request, book_id):
     cart_id = request.session.get('cart_id')
     cart = get_object_or_404(Cart, id=cart_id)
     cart_item = get_object_or_404(CartItem, cart=cart, book_id=book_id)
     cart_item.delete()
     return redirect('store:cart_detail')
+
 
 def login_page(request):
     if request.method == 'POST':
